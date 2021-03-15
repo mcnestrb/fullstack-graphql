@@ -16,8 +16,34 @@ const typeDefs = gql`
     type: String
   }
 
+  input PetInput {
+    type: String
+  }
+
+  input NewPetInput {
+    type: String!
+    name: String!
+  }
+
+  type Shoe {
+    brand: String!
+    size: Int!
+  }
+
+  input ShoeInput {
+    brand: String
+    size: Int
+  }
+
   type Query {
-    pets: [Pet]!
+    pets(input: PetInput): [Pet]!
+    pet(input: PetInput!): Pet
+    shoes(input: ShoeInput): [Shoe]!
+  }
+
+  type Mutation {
+    newPet(input: NewPetInput!): Pet!
+    deletePet(input: NewPetInput!): Pet
   }
 `;
 

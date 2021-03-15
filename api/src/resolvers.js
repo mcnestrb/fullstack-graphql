@@ -5,13 +5,28 @@
 
 module.exports = {
   Query: {
-    pets(_, __, ctx) {
-      return [{id: 1, name: 'hux'}, {id: 2, name: 'garfield'}]
+    pets(_, {input}, ctx) {
+      return ctx.models.Pet.findMany(input)
     },
+    pet(_, {input}, ctx) {
+      return ctx.models.Pet.findOne(input)
+    },
+    shoes(_, {input}) {
+      return [
+        {brand: 'nike', size: 12},
+        {brand: 'adidas', size: 9}
+      ].filter(shoe => shoe.brand === input.brand)
+    }
   },
-  // Mutation: {
-    
-  // },
+  Mutation: {
+    newPet(_, {input}, ctx) {
+      return ctx.models.Pet.create(input)
+    },
+    deletePet(_, {input}, ctx) {
+      return ctx.models.Pet.delete(input)
+      
+    }
+  },
   Pet: {
     id() {
       return '3'
